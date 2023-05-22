@@ -5,32 +5,38 @@ document.addEventListener("DOMContentLoaded", () => {
         let image = document.getElementById('image');
         let price = document.getElementById('price');
         let description = document.getElementById('description');
-        const prices = ['99990₽', '100990₽', '91990₽']
-        const descriptions = [
-            [
-                'Экран 6.1"/2532x1170 Пикс',
-                'Технология экрана OLED',
-                'Тип процессора A14 Bionic',
-                'Встроенная память (ROM) 128 ГБ',
-                'Основная камера МПикс 12/12/12/LiDAR'
-            ],
-            [
-
-                'Экран 6.1"/2532x1170 Пикс',
-                'Технология экрана OLED',
-                'Тип процессора A16 Bionic',
-                'Встроенная память (ROM) 256 ГБ',
-                'Основная камера МПикс 12/12/12/LiDAR'
-            ],
-            [
-
-                'Экран 6.1"/2532x1170 Пикс',
-                'Технология экрана OLED',
-                'Тип процессора A10 Bionic',
-                'Встроенная память (ROM) 64 ГБ',
-                'Основная камера МПикс 12/12/12/LiDAR'
-            ]
+        const data = [{
+                title: "Смартфон Apple iPhone 12 Pro 128GB Graphite",
+                img: "img/iPhone-graphite.png",
+                screen: "'Экран 6.1'/2532x1170 Пикс",
+                tech: "Технология экрана OLED",
+                processor: "Тип процессора A14 Bionic",
+                memory: "Встроенная память (ROM) 128 ГБ",
+                camera: "Основная камера МПикс 12/12/12/LiDAR",
+                price: 9999
+            },
+            {
+                title: "Смартфон Apple iPhone 13 Pro 128GB Silver",
+                img: "img/iPhone-silver.png",
+                screen: "'Экран 6.1'/2532x1170 Пикс",
+                tech: "Технология экрана LSD",
+                processor: "Тип процессора A14 Bionic",
+                memory: "Встроенная память (ROM) 128 ГБ",
+                camera: "Основная камера МПикс 12/12/12/LiDAR",
+                price: 1599
+            },
+            {
+                title: "Смартфон Apple iPhone 14 Pro 128GB Pacific Blue",
+                img: "img/iPhone-blue.png",
+                screen: "'Экран 6.1'/2532x1170 Пикс",
+                tech: "Технология экрана Amalet",
+                processor: "Тип процессора A14 Bionic",
+                memory: "Встроенная память (ROM) 128 ГБ",
+                camera: "Основная камера МПикс 12/12/12/LiDAR",
+                price: 19999
+            }
         ];
+
         const hideAll = () => {
             for (let i = 0; i < detailChange.children.length; i++) {
                 detailChange.children[i].children[0].classList.remove('active')
@@ -44,14 +50,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 detailChange.children[i].children[0].classList.add('active')
                 image.children[i].classList.add('active')
                 detailTitle.children[i].classList.add('active')
-                price.children[0].textContent = prices[i];
-                description.children[0].textContent = descriptions[i][0];
-                description.children[1].textContent = descriptions[i][1];
-                description.children[2].textContent = descriptions[i][2];
-                description.children[3].textContent = descriptions[i][3];
-                description.children[4].textContent = descriptions[i][4];
+                price.children[0].textContent = data[i].price;
+                description.children[0].textContent = data[i].screen;
+                description.children[1].textContent = data[i].tech;
+                description.children[2].textContent = data[i].processor;
+                description.children[3].textContent = data[i].memory;
+                description.children[4].textContent = data[i].camera;
             }
         }
     }
-    tabs()
+    const accordeon = () => {
+        const characteristicsItemElem = document.querySelector(
+            ".characteristics__item"
+        );
+        const characteristicsDescription = document.querySelector(
+            ".characteristics__description"
+        );
+        const characteristicsListElem = document.querySelector(
+            ".characteristics__list"
+        );
+        const open = (button, dropDown) => {
+            if (window.getComputedStyle(dropDown, null).height == "1.6px") {
+                dropDown.style.height = `${dropDown.style.scrollHeight-0}px`
+            } else {
+                dropDown.style.height = "1.6px";
+            }
+            button.classList.toggle("active");
+            dropDown.classList.toggle("active");
+        };
+        characteristicsListElem.addEventListener("click", (event) => {
+            const target = event.target;
+            if (target.classList.contains("characteristics__title")) {
+                const parent = target.closest(".characteristics__item");
+                const description = parent.querySelector(
+                    ".characteristics__description"
+                );
+                open(target, description);
+            }
+        });
+    }
+    tabs();
+    accordeon();
 });
